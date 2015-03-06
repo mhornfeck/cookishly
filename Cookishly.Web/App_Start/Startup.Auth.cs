@@ -1,4 +1,7 @@
 ﻿using System;
+using Cookishly.Data;
+using Cookishly.Data.Entities;
+using Cookishly.Web.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
