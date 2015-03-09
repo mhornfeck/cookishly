@@ -16,3 +16,4 @@ C:\Users\mhorn_000\Source\Personal\Github\Cookishly\Cookishly.Data\obj\Debug\Coo
 C:\Users\mhorn_000\Source\Personal\Github\Cookishly\Cookishly.Data\obj\Debug\Cookishly.Data.pdb
 C:\Users\mhorn_000\Source\Personal\Github\Cookishly\Cookishly.Data\obj\Debug\Cookishly.Data.Migrations.Database_001.resources
 C:\Users\mhorn_000\Source\Personal\Github\Cookishly\Cookishly.Data\obj\Debug\Cookishly.Data.csproj.GenerateResource.Cache
+C:\Users\mhorn_000\Source\Personal\Github\Cookishly\Cookishly.Data\obj\Debug\Cookishly.Data.Migrations.Database_002.resources

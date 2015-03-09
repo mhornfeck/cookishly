@@ -6,6 +6,7 @@ namespace Cookishly.Data.Configurations
     {
         public RecipeStepEntityConfiguration()
         {
+            ToTable("RecipeSteps");
             HasRequired(x => x.Recipe).WithMany(x => x.Steps);
         }
     }
