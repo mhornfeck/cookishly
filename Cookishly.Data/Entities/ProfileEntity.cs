@@ -7,5 +7,7 @@ namespace Cookishly.Data.Entities
         public IList<IngredientEntity> Ingredients { get; set; }
 
         public IList<RecipeEntity> Recipes { get; set; }
+
+        public IList<ApplicationUser> Users { get; set; } 
     }
 }

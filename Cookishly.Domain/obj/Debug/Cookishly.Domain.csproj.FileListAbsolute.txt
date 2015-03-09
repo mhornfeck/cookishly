@@ -1,0 +1,5 @@
+C:\Users\mhorn_000\Source\Personal\Github\Cookishly\Cookishly.Domain\bin\Debug\Cookishly.Domain.dll
+C:\Users\mhorn_000\Source\Personal\Github\Cookishly\Cookishly.Domain\bin\Debug\Cookishly.Domain.pdb
+C:\Users\mhorn_000\Source\Personal\Github\Cookishly\Cookishly.Domain\obj\Debug\Cookishly.Domain.csprojResolveAssemblyReference.cache
+C:\Users\mhorn_000\Source\Personal\Github\Cookishly\Cookishly.Domain\obj\Debug\Cookishly.Domain.dll
+C:\Users\mhorn_000\Source\Personal\Github\Cookishly\Cookishly.Domain\obj\Debug\Cookishly.Domain.pdb

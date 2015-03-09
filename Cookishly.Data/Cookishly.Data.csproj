@@ -52,14 +52,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="CookishlyContext.cs" />
+    <Compile Include="Configurations\IngredientEntityConfiguration.cs" />
+    <Compile Include="Configurations\IngredientSpecificationEntityConfiguration.cs" />
+    <Compile Include="Configurations\ProfileEntityConfiguration.cs" />
+    <Compile Include="Configurations\RecipeEntityConfiguration.cs" />
+    <Compile Include="Configurations\RecipeStepEntityConfiguration.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\IngredientEntity.cs" />
-    <Compile Include="Entities\IngredientSpecification.cs" />
+    <Compile Include="Entities\IngredientSpecificationEntity.cs" />
     <Compile Include="Entities\ProfileEntity.cs" />
     <Compile Include="Entities\RecipeEntity.cs" />
     <Compile Include="Entities\RecipeStepEntity.cs" />
+    <Compile Include="Configurations\EntityBaseConfiguration.cs" />
+    <Compile Include="Migrations\201503091540165_Database_001.cs" />
+    <Compile Include="Migrations\201503091540165_Database_001.Designer.cs">
+      <DependentUpon>201503091540165_Database_001.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +82,11 @@
       <Project>{405CAD18-8047-43B1-BB95-C2361D4B593E}</Project>
       <Name>Cookishly.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201503091540165_Database_001.resx">
+      <DependentUpon>201503091540165_Database_001.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
