@@ -7,7 +7,7 @@ namespace Cookishly.Data.Configurations
         public ProfileEntityConfiguration()
         {
             ToTable("Profiles");
-            HasMany(x => x.Ingredients).WithRequired(x => x.Profile);
+            HasMany(x => x.Ingredients).WithOptional(x => x.Profile);
             HasMany(x => x.Recipes).WithRequired(x => x.Profile).WillCascadeOnDelete(false);
             HasMany(x => x.Users).WithMany(x => x.Profiles);
         }
