@@ -13,7 +13,7 @@ namespace Cookishly.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201503111804011_Database_001"; }
+            get { return "201503111957508_Database_001"; }
         }
         
         string IMigrationMetadata.Source

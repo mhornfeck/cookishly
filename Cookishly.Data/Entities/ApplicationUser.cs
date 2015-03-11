@@ -11,7 +11,9 @@ namespace Cookishly.Data.Entities
     // please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public IList<ProfileEntity> Profiles { get; set; }
+        public int ProfileId { get; set; }
+
+        public ProfileEntity Profile { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

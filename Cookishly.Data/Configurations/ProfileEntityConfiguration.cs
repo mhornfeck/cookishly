@@ -9,7 +9,7 @@ namespace Cookishly.Data.Configurations
             ToTable("Profiles");
             HasMany(x => x.Ingredients).WithOptional(x => x.Profile);
             HasMany(x => x.Recipes).WithRequired(x => x.Profile).WillCascadeOnDelete(false);
-            HasMany(x => x.Users).WithMany(x => x.Profiles);
+            HasMany(x => x.Users).WithRequired(x => x.Profile);
         }
     }
 }

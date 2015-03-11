@@ -65,6 +65,7 @@ namespace Cookishly.Data.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        ProfileId = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -78,6 +79,8 @@ namespace Cookishly.Data.Migrations
                         UserName = c.String(nullable: false, maxLength: 256),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Profiles", t => t.ProfileId, cascadeDelete: true)
+                .Index(t => t.ProfileId)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
@@ -141,19 +144,6 @@ namespace Cookishly.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
-            CreateTable(
-                "dbo.ProfileEntityApplicationUsers",
-                c => new
-                    {
-                        ProfileEntity_Id = c.Int(nullable: false),
-                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.ProfileEntity_Id, t.ApplicationUser_Id })
-                .ForeignKey("dbo.Profiles", t => t.ProfileEntity_Id, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id, cascadeDelete: true)
-                .Index(t => t.ProfileEntity_Id)
-                .Index(t => t.ApplicationUser_Id);
-            
         }
         
         public override void Down()
@@ -162,15 +152,12 @@ namespace Cookishly.Data.Migrations
             DropForeignKey("dbo.Ingredients", "ProfileId", "dbo.Profiles");
             DropForeignKey("dbo.IngredientSpecifications", "IngredientId", "dbo.Ingredients");
             DropForeignKey("dbo.RecipeSteps", "RecipeId", "dbo.Recipes");
-            DropForeignKey("dbo.ProfileEntityApplicationUsers", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.ProfileEntityApplicationUsers", "ProfileEntity_Id", "dbo.Profiles");
+            DropForeignKey("dbo.AspNetUsers", "ProfileId", "dbo.Profiles");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Recipes", "ProfileId", "dbo.Profiles");
             DropForeignKey("dbo.IngredientSpecifications", "RecipeId", "dbo.Recipes");
-            DropIndex("dbo.ProfileEntityApplicationUsers", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.ProfileEntityApplicationUsers", new[] { "ProfileEntity_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.RecipeSteps", new[] { "RecipeId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
@@ -178,11 +165,11 @@ namespace Cookishly.Data.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.AspNetUsers", new[] { "ProfileId" });
             DropIndex("dbo.Recipes", new[] { "ProfileId" });
             DropIndex("dbo.IngredientSpecifications", new[] { "RecipeId" });
             DropIndex("dbo.IngredientSpecifications", new[] { "IngredientId" });
             DropIndex("dbo.Ingredients", new[] { "ProfileId" });
-            DropTable("dbo.ProfileEntityApplicationUsers");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.RecipeSteps");
             DropTable("dbo.AspNetUserRoles");

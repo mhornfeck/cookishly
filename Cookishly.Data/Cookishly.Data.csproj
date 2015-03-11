@@ -66,9 +66,9 @@
     <Compile Include="Entities\RecipeEntity.cs" />
     <Compile Include="Entities\RecipeStepEntity.cs" />
     <Compile Include="Configurations\EntityBaseConfiguration.cs" />
-    <Compile Include="Migrations\201503111804011_Database_001.cs" />
-    <Compile Include="Migrations\201503111804011_Database_001.Designer.cs">
-      <DependentUpon>201503111804011_Database_001.cs</DependentUpon>
+    <Compile Include="Migrations\201503111957508_Database_001.cs" />
+    <Compile Include="Migrations\201503111957508_Database_001.Designer.cs">
+      <DependentUpon>201503111957508_Database_001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Migrator.cs" />
@@ -85,8 +85,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503111804011_Database_001.resx">
-      <DependentUpon>201503111804011_Database_001.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503111957508_Database_001.resx">
+      <DependentUpon>201503111957508_Database_001.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
