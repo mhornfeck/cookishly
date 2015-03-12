@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 using Cookishly.Data;
 using Cookishly.Data.Entities;
 using Cookishly.Domain;
 using Cookishly.Services.Contract;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Cookishly.Services.Concrete
 {
@@ -53,6 +53,39 @@ namespace Cookishly.Services.Concrete
                 }
 
                 return ServiceResult<Ingredient>.Fail("Failed to update ingredient. Ingredient not found.");
+            }
+        }
+
+        public async Task<IPagedResult<Ingredient>> GetIngredientsAsync(GetIngredientsArgs args)
+        {
+            using (var context = new CookishlyContext())
+            {
+                var user = await context.FindUserByUsernameAsync(args.Username);
+
+                var ingredientEntities = context.Ingredients.Where(x => x.ProfileId == null || x.ProfileId == user.ProfileId);
+
+                switch (args.IngredientType)
+                {
+                    case IngredientType.BuiltIn:
+                        ingredientEntities = ingredientEntities.Where(x => x.ProfileId == null);
+                        break;
+                    case IngredientType.Custom:
+                        ingredientEntities = ingredientEntities.Where(x => x.ProfileId != null);
+                        break;
+                }
+
+                if (args.IngredientCategory.HasValue)
+                {
+                    ingredientEntities = ingredientEntities.Where(x => x.Category == args.IngredientCategory.Value);
+                }
+
+                var pageIngredients = await ingredientEntities.OrderBy(x => x.Name)
+                    .Skip(args.Limit * args.Offset)
+                    .Take(args.Offset).ToListAsync();
+
+                var ingredients = pageIngredients.Select(x => x.ToDomain()).ToList();
+
+                return PagedResult<Ingredient>.Success(ingredientEntities.Count(), args.Limit, args.Offset, ingredients);
             }
         }
     }

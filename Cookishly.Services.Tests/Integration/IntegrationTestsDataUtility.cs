@@ -45,6 +45,30 @@ namespace Cookishly.Services.Tests.Integration
                     Category = IngredientCategory.Produce,
                     ImageUrl = "",
                     Name = "Tomatoes"
+                },
+
+                new IngredientEntity
+                {
+                    Id = 2,
+                    Category = IngredientCategory.Produce,
+                    ImageUrl = "",
+                    Name = "Carrots"
+                },
+
+                new IngredientEntity
+                {
+                    Id = 3,
+                    Category = IngredientCategory.Dairy,
+                    ImageUrl = "",
+                    Name = "Eggs"
+                },
+
+                new IngredientEntity
+                {
+                    Id = 4,
+                    Category = IngredientCategory.Dairy,
+                    ImageUrl = "",
+                    Name = "Milk"
                 }
             };
 
@@ -52,7 +76,7 @@ namespace Cookishly.Services.Tests.Integration
             {
                 new IngredientEntity
                 {
-                    Id = 2,
+                    Id = 5,
                     Category = IngredientCategory.Produce,
                     ImageUrl = "",
                     Name = "Cherry Tomatoes",
@@ -61,10 +85,28 @@ namespace Cookishly.Services.Tests.Integration
 
                 new IngredientEntity
                 {
-                    Id = 3,
+                    Id = 6,
                     Category = IngredientCategory.Produce,
                     ImageUrl = "",
                     Name = "Kale",
+                    ProfileId = 1
+                },
+
+                new IngredientEntity
+                {
+                    Id = 7,
+                    Category = IngredientCategory.Dairy,
+                    ImageUrl = "",
+                    Name = "Half & Half",
+                    ProfileId = 1
+                },
+
+                new IngredientEntity
+                {
+                    Id = 8,
+                    Category = IngredientCategory.Produce,
+                    ImageUrl = "",
+                    Name = "Baby Spinach",
                     ProfileId = 2
                 }
             };

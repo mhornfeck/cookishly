@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IngredientType.cs" />
     <Compile Include="Recipe.cs" />
     <Compile Include="Ingredient.cs" />
     <Compile Include="IngredientCategory.cs" />

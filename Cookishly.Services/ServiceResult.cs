@@ -5,7 +5,7 @@ namespace Cookishly.Services
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
 
-        private ServiceResult(bool isSuccess, string message)
+        protected ServiceResult(bool isSuccess, string message)
         {
             IsSuccess = isSuccess;
             Message = message;
@@ -22,16 +22,12 @@ namespace Cookishly.Services
         }
     }
 
-    public class ServiceResult<T> : IResult<T> where T : class
+    public class ServiceResult<T> : ServiceResult, IResult<T> where T : class
     {
-        public bool IsSuccess { get; set; }
-        public string Message { get; set; }
         public T Payload { get; set; }
 
-        private ServiceResult(bool isSuccess, string message, T payload)
+        private ServiceResult(bool isSuccess, string message, T payload) : base(isSuccess, message)
         {
-            IsSuccess = isSuccess;
-            Message = message;
             Payload = payload;
         }
 
@@ -40,7 +36,7 @@ namespace Cookishly.Services
             return new ServiceResult<T>(true, message, payload);
         }
 
-        public static IResult<T> Fail(string message = "")
+        public new static IResult<T> Fail(string message = "")
         {
             return new ServiceResult<T>(false, message, null);
         }

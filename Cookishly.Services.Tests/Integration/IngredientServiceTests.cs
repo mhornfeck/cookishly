@@ -121,5 +121,32 @@ namespace Cookishly.Services.Tests.Integration
             Assert.AreEqual(ingredient.Category, resultPayload.Category);
             Assert.AreEqual(ingredient.Id, resultPayload.Id);
         }
+
+        [Test]
+        public void Get_GivenAllIngredientTypes_ReturnsCorrectCounts()
+        {
+            var args = new GetIngredientsArgs
+            {
+                Username = _data.TestUser1.UserName,
+                IngredientType = IngredientType.All,
+                Limit = 3,
+                Offset = 1
+            };
+
+            var result = _service.GetIngredientsAsync(args).Result;
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
+
+            var expectedRecordCount = _data.BuiltInIngredients.Count() +
+                                      _data.CustomIngredients.Count(x => x.ProfileId.Equals(_data.TestUser1.ProfileId));
+
+            Assert.AreEqual(expectedRecordCount, result.TotalRecords);
+            Assert.AreEqual(args.Offset, result.PageNumber);
+            Assert.AreEqual(args.Limit, result.PageSize);
+
+            Assert.IsNotNull(result.Data);
+            Assert.IsTrue(result.Data.Count <= args.Limit);
+        }
     }
 }
