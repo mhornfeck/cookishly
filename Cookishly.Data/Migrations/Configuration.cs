@@ -9,10 +9,9 @@ namespace Cookishly.Data.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Cookishly.Data.CookishlyContext context)
+        protected override void Seed(CookishlyContext context)
         {
-            var migrator = new Migrator(context);
-            migrator.SeedData();
+
         }
     }
 }

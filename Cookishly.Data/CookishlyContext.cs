@@ -1,6 +1,8 @@
 ﻿using System.Data.Entity;
+using System.Threading.Tasks;
 using Cookishly.Data.Configurations;
 using Cookishly.Data.Entities;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Cookishly.Data
@@ -20,6 +22,13 @@ namespace Cookishly.Data
         public static CookishlyContext Create()
         {
             return new CookishlyContext();
+        }
+
+        public async Task<ApplicationUser> FindUserByUsernameAsync(string username)
+        {
+            var store = new UserStore<ApplicationUser>(this);
+            var manager = new UserManager<ApplicationUser>(store);
+            return await manager.FindByNameAsync(username);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

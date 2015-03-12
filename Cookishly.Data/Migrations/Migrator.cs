@@ -30,51 +30,6 @@ namespace Cookishly.Data.Migrations
             migrator.Update();
         }
 
-        public void SeedData()
-        {
-            var testUser = new ApplicationUser
-            {
-                UserName = "testuser@example.com",
-                Profile = new ProfileEntity
-                {
-                    Id = 1
-                }
-            };
-
-            if (_context.Users.Any(x => x.UserName.Equals(testUser.UserName)) == false)
-            {
-                var store = new UserStore<ApplicationUser>(_context);
-                var manager = new UserManager<ApplicationUser>(store);
-                manager.Create(testUser);
-            }
-
-            var builtInIngredients = new []
-            {
-                new IngredientEntity
-                {
-                    Id = 1,
-                    Category = IngredientCategory.Produce,
-                    ImageUrl = "",
-                    Name = "Tomatoes"
-                }
-            };
-
-            var customIngredients = new []
-            {
-                new IngredientEntity
-                {
-                    Id = 2,
-                    Category = IngredientCategory.Produce,
-                    ImageUrl = "",
-                    Name = "Cherry Tomatoes",
-                    ProfileId = 1
-                }
-            };
-
-            _context.Ingredients.AddOrUpdate(builtInIngredients);
-            _context.Ingredients.AddOrUpdate(customIngredients);
-        }
-
         public void CleanData()
         {
             foreach (var ingredientEntity in _context.Ingredients)

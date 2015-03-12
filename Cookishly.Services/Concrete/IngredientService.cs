@@ -19,9 +19,7 @@ namespace Cookishly.Services.Concrete
         {
             using (var context = new CookishlyContext())
             {
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
-                var user = await manager.FindByNameAsync(args.Username);
+                var user = await context.FindUserByUsernameAsync(args.Username);
 
                 var newIngredientEntity = new IngredientEntity(args.Ingredient)
                 {
@@ -35,15 +33,21 @@ namespace Cookishly.Services.Concrete
             }
         }
 
-        public async Task<IResult<Ingredient>> UpdateIngredientAsync(Ingredient args)
+        public async Task<IResult<Ingredient>> UpdateIngredientAsync(SaveIngredientArgs args)
         {
             using (var context = new CookishlyContext())
             {
-                var ingredientEntity = await context.Ingredients.FindAsync(args.Id);
+                var user = await context.FindUserByUsernameAsync(args.Username);
+                var ingredientEntity = await context.Ingredients.FindAsync(args.Ingredient.Id);
 
                 if (ingredientEntity != null)
                 {
-                    ingredientEntity.Update(args);
+                    if (ingredientEntity.ProfileId.Equals(user.ProfileId) == false)
+                    {
+                        return ServiceResult<Ingredient>.Fail("Failed to update ingredient. User is not authorized.");
+                    }
+
+                    ingredientEntity.Update(args.Ingredient);
                     await context.SaveChangesAsync();
                     return ServiceResult<Ingredient>.Success(ingredientEntity.ToDomain());
                 }
