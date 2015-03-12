@@ -34,7 +34,13 @@ namespace Cookishly.Services.Tests
                 Category = IngredientCategory.Dairy
             };
 
-            var result = _service.CreateIngredientAsync(ingredient).Result;
+            var args = new SaveIngredientArgs
+            {
+                Ingredient = ingredient,
+                Username = "testuser@example.com"
+            };
+
+            var result = _service.CreateIngredientAsync(args).Result;
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.IsSuccess);

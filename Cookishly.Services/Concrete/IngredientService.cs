@@ -3,6 +3,8 @@ using Cookishly.Data;
 using Cookishly.Data.Entities;
 using Cookishly.Domain;
 using Cookishly.Services.Contract;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Cookishly.Services.Concrete
 {
@@ -13,11 +15,19 @@ namespace Cookishly.Services.Concrete
 
         }
 
-        public async Task<IResult<Ingredient>> CreateIngredientAsync(Ingredient args)
+        public async Task<IResult<Ingredient>> CreateIngredientAsync(SaveIngredientArgs args)
         {
             using (var context = new CookishlyContext())
             {
-                var newIngredientEntity = new IngredientEntity(args);
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = await manager.FindByNameAsync(args.Username);
+
+                var newIngredientEntity = new IngredientEntity(args.Ingredient)
+                {
+                    ProfileId = user.ProfileId
+                };
+
                 context.Ingredients.Add(newIngredientEntity);
                 await context.SaveChangesAsync();
 
