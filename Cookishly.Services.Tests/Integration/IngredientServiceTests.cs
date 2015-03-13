@@ -158,7 +158,7 @@ namespace Cookishly.Services.Tests.Integration
 
             var args = new DeleteIngredientArgs
             {
-                Id = 6,
+                IngredientId = 6,
                 Username = testUser.UserName
             };
 
@@ -175,7 +175,7 @@ namespace Cookishly.Services.Tests.Integration
 
             var args = new DeleteIngredientArgs
             {
-                Id = 1,
+                IngredientId = 1,
                 Username = testUser.UserName
             };
 
@@ -192,7 +192,7 @@ namespace Cookishly.Services.Tests.Integration
 
             var args = new DeleteIngredientArgs
             {
-                Id = 7,
+                IngredientId = 7,
                 Username = testUser.UserName
             };
 

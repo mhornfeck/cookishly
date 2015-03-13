@@ -12,7 +12,7 @@ namespace Cookishly.Data.Entities
             _ingredientSpecifications = new List<IngredientSpecificationEntity>();
         }
 
-        public IngredientEntity(Ingredient ingredient) : this()
+        public IngredientEntity(Ingredient ingredient)
         {
             Update(ingredient);
         }

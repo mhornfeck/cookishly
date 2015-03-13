@@ -10,11 +10,6 @@ namespace Cookishly.Services.Concrete
 {
     public class IngredientService : IIngredientService
     {
-        public IngredientService()
-        {
-
-        }
-
         public async Task<IResult<Ingredient>> CreateIngredientAsync(SaveIngredientArgs args)
         {
             using (var context = new CookishlyContext())
@@ -96,7 +91,7 @@ namespace Cookishly.Services.Concrete
                 var user = await context.FindUserByUsernameAsync(args.Username);
 
                 var ingredient = context.Ingredients.Where(x => x.ProfileId == user.ProfileId)
-                    .SingleOrDefault(x => x.Id == args.Id);
+                    .SingleOrDefault(x => x.Id == args.IngredientId);
 
                 if (ingredient == null)
                 {

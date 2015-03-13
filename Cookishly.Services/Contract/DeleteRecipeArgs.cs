@@ -1,8 +1,8 @@
 ﻿namespace Cookishly.Services.Contract
 {
-    public class DeleteIngredientArgs
+    public class DeleteRecipeArgs
     {
-        public int IngredientId { get; set; }
+        public int RecipeId { get; set; }
         public string Username { get; set; }
     }
 }

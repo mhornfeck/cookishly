@@ -17,6 +17,11 @@ namespace Cookishly.Data.Entities
 
         public IList<IngredientSpecificationEntity> Ingredients { get; set; }
 
-        public IList<RecipeStepEntity> Steps { get; set; }  
+        public IList<RecipeStepEntity> Steps { get; set; }
+
+        public Recipe ToDomain()
+        {
+            return new Recipe();
+        }
     }
 }

@@ -58,10 +58,14 @@
   <ItemGroup>
     <Compile Include="Concrete\IngredientService.cs" />
     <Compile Include="Contract\DeleteIngredientArgs.cs" />
+    <Compile Include="Contract\DeleteRecipeArgs.cs" />
     <Compile Include="Contract\GetIngredientsArgs.cs" />
+    <Compile Include="Contract\GetRecipesArgs.cs" />
     <Compile Include="Contract\IIngredientService.cs" />
+    <Compile Include="Contract\IRecipeService.cs" />
     <Compile Include="Contract\PagingArgs.cs" />
     <Compile Include="Contract\SaveIngredientArgs.cs" />
+    <Compile Include="Contract\SaveRecipeArgs.cs" />
     <Compile Include="IResult.cs" />
     <Compile Include="PagedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
