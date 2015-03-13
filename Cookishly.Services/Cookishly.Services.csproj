@@ -57,7 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\IngredientService.cs" />
+    <Compile Include="Contract\GetIngredientsArgs.cs" />
     <Compile Include="Contract\IIngredientService.cs" />
+    <Compile Include="Contract\PagingArgs.cs" />
     <Compile Include="Contract\SaveIngredientArgs.cs" />
     <Compile Include="IResult.cs" />
     <Compile Include="PagedResult.cs" />

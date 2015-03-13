@@ -125,9 +125,11 @@ namespace Cookishly.Services.Tests.Integration
         [Test]
         public void Get_GivenAllIngredientTypes_ReturnsCorrectCounts()
         {
+            var testUser = _data.TestUser1;
+
             var args = new GetIngredientsArgs
             {
-                Username = _data.TestUser1.UserName,
+                Username = testUser.UserName,
                 IngredientType = IngredientType.All,
                 Limit = 3,
                 Offset = 1
@@ -139,7 +141,7 @@ namespace Cookishly.Services.Tests.Integration
             Assert.IsTrue(result.IsSuccess);
 
             var expectedRecordCount = _data.BuiltInIngredients.Count() +
-                                      _data.CustomIngredients.Count(x => x.ProfileId.Equals(_data.TestUser1.ProfileId));
+                                      _data.CustomIngredients.Count(x => x.ProfileId.Equals(testUser.ProfileId));
 
             Assert.AreEqual(expectedRecordCount, result.TotalRecords);
             Assert.AreEqual(args.Offset, result.PageNumber);
