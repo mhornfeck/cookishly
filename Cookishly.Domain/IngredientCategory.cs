@@ -2,8 +2,17 @@
 {
     public enum IngredientCategory
     {
-        Produce,
+        Beverages,
+        BreadBakery,
+        CannedJarred,
         Dairy,
+        DryGrains,
+        Baking,
+        Frozen,
+        Meat,
+        Produce,
+        Seasonings,
+        Oils,
         Other
     }
 }

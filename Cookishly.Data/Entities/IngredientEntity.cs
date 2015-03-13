@@ -5,9 +5,11 @@ namespace Cookishly.Data.Entities
 {
     public class IngredientEntity : EntityBase
     {
+        private IList<IngredientSpecificationEntity> _ingredientSpecifications;
+
         public IngredientEntity()
         {
-            IngredientSpecifications = new List<IngredientSpecificationEntity>();
+            _ingredientSpecifications = new List<IngredientSpecificationEntity>();
         }
 
         public IngredientEntity(Ingredient ingredient) : this()
@@ -25,7 +27,11 @@ namespace Cookishly.Data.Entities
 
         public ProfileEntity Profile { get; set; }
 
-        public IList<IngredientSpecificationEntity> IngredientSpecifications { get; set; }
+        public virtual IList<IngredientSpecificationEntity> IngredientSpecifications
+        {
+            get { return _ingredientSpecifications; }
+            set { _ingredientSpecifications = value; }
+        }
 
         public Ingredient ToDomain()
         {

@@ -88,5 +88,31 @@ namespace Cookishly.Services.Concrete
                 return PagedResult<Ingredient>.Success(ingredientEntities.Count(), args.Limit, args.Offset, ingredients);
             }
         }
+
+        public async Task<IResult> DeleteIngredientAsync(DeleteIngredientArgs args)
+        {
+            using (var context = new CookishlyContext())
+            {
+                var user = await context.FindUserByUsernameAsync(args.Username);
+
+                var ingredient = context.Ingredients.Where(x => x.ProfileId == user.ProfileId)
+                    .SingleOrDefault(x => x.Id == args.Id);
+
+                if (ingredient == null)
+                {
+                    return ServiceResult.Fail("Ingredient could not be found or user is not authorized.");
+                }
+
+                if (ingredient.IngredientSpecifications.Any())
+                {
+                    return ServiceResult.Fail("Ingredient could not be deleted because it is used in at least one recipe.");
+                }
+
+                context.Ingredients.Remove(ingredient);
+                await context.SaveChangesAsync();
+
+                return ServiceResult.Success("Ingredient was deleted.");
+            }
+        }
     }
 }

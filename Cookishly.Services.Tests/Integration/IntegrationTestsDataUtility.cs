@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using Cookishly.Data;
@@ -14,6 +15,8 @@ namespace Cookishly.Services.Tests.Integration
         public ApplicationUser TestUser2 { get; private set; }
         public IngredientEntity[] BuiltInIngredients { get; private set; }
         public IngredientEntity[] CustomIngredients { get; private set; }
+        public RecipeEntity[] Recipes { get; private set; }
+        public IngredientSpecificationEntity[] IngredientSpecifications { get; private set; }
 
         public IntegrationTestsDataUtility()
         {
@@ -50,9 +53,9 @@ namespace Cookishly.Services.Tests.Integration
                 new IngredientEntity
                 {
                     Id = 2,
-                    Category = IngredientCategory.Produce,
+                    Category = IngredientCategory.DryGrains,
                     ImageUrl = "",
-                    Name = "Carrots"
+                    Name = "Spaghetti Noodles"
                 },
 
                 new IngredientEntity
@@ -69,6 +72,14 @@ namespace Cookishly.Services.Tests.Integration
                     Category = IngredientCategory.Dairy,
                     ImageUrl = "",
                     Name = "Milk"
+                },
+
+                new IngredientEntity
+                {
+                    Id = 5,
+                    Category = IngredientCategory.CannedJarred,
+                    ImageUrl = "",
+                    Name = "Black Beans"
                 }
             };
 
@@ -76,7 +87,7 @@ namespace Cookishly.Services.Tests.Integration
             {
                 new IngredientEntity
                 {
-                    Id = 5,
+                    Id = 6,
                     Category = IngredientCategory.Produce,
                     ImageUrl = "",
                     Name = "Cherry Tomatoes",
@@ -85,16 +96,16 @@ namespace Cookishly.Services.Tests.Integration
 
                 new IngredientEntity
                 {
-                    Id = 6,
+                    Id = 7,
                     Category = IngredientCategory.Produce,
                     ImageUrl = "",
-                    Name = "Kale",
+                    Name = "Poblano Peppers",
                     ProfileId = 1
                 },
 
                 new IngredientEntity
                 {
-                    Id = 7,
+                    Id = 8,
                     Category = IngredientCategory.Dairy,
                     ImageUrl = "",
                     Name = "Half & Half",
@@ -103,13 +114,75 @@ namespace Cookishly.Services.Tests.Integration
 
                 new IngredientEntity
                 {
-                    Id = 8,
-                    Category = IngredientCategory.Produce,
+                    Id = 9,
+                    Category = IngredientCategory.Seasonings,
                     ImageUrl = "",
-                    Name = "Baby Spinach",
+                    Name = "Basil",
                     ProfileId = 2
                 }
             };
+
+            Recipes = new[]
+            {
+                new RecipeEntity
+                {
+                    Id = 1,
+                    Category = RecipeCategory.MainDishes,
+                    ImageUrl = "",
+                    Name = "Chili",
+                    ProfileId = 1
+                },
+
+                new RecipeEntity
+                {
+                    Id = 2,
+                    Category = RecipeCategory.MainDishes,
+                    ImageUrl = "",
+                    Name = "Spaghetti",
+                    ProfileId = 2
+                }
+            };
+
+            IngredientSpecifications = new[]
+            {
+                new IngredientSpecificationEntity
+                {
+                    Id = 1,
+                    IngredientId = 1,
+                    RecipeId = 1,
+                    Preparation = "Chopped",
+                    Quantity = "1",
+                    Units = "cups"
+                },
+                new IngredientSpecificationEntity
+                {
+                    Id = 2,
+                    IngredientId = 6,
+                    RecipeId = 1,
+                    Preparation = "Chopped",
+                    Quantity = "2",
+                    Units = "cups"
+                },
+                new IngredientSpecificationEntity
+                {
+                    Id = 3,
+                    IngredientId = 1,
+                    RecipeId = 2,
+                    Preparation = "Blended",
+                    Quantity = "4",
+                    Units = "cups"
+                },
+                new IngredientSpecificationEntity
+                {
+                    Id = 4,
+                    IngredientId = 8,
+                    RecipeId = 2,
+                    Preparation = "Chopped",
+                    Quantity = "2",
+                    Units = "tbsp"
+                }
+            };
+
         }
 
         public void SeedTestData()
@@ -133,6 +206,8 @@ namespace Cookishly.Services.Tests.Integration
 
                 context.Ingredients.AddOrUpdate(BuiltInIngredients);
                 context.Ingredients.AddOrUpdate(CustomIngredients);
+                context.Recipes.AddOrUpdate(Recipes);
+                context.IngredientSpecifications.AddOrUpdate(IngredientSpecifications);
 
                 context.SaveChanges();
             }

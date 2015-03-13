@@ -125,7 +125,7 @@ namespace Cookishly.Services.Tests.Integration
         [Test]
         public void Get_GivenAllIngredientTypes_ReturnsCorrectCounts()
         {
-            var testUser = _data.TestUser1;
+            var testUser = _data.TestUser2;
 
             var args = new GetIngredientsArgs
             {
@@ -149,6 +149,57 @@ namespace Cookishly.Services.Tests.Integration
 
             Assert.IsNotNull(result.Data);
             Assert.IsTrue(result.Data.Count <= args.Limit);
+        }
+
+        [Test]
+        public void Delete_GivenIngredientUsedInRecipes_Fails()
+        {
+            var testUser = _data.TestUser1;
+
+            var args = new DeleteIngredientArgs
+            {
+                Id = 6,
+                Username = testUser.UserName
+            };
+
+            var result = _service.DeleteIngredientAsync(args).Result;
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsSuccess);
+        }
+
+        [Test]
+        public void Delete_GivenBuiltInIngredient_Fails()
+        {
+            var testUser = _data.TestUser1;
+
+            var args = new DeleteIngredientArgs
+            {
+                Id = 1,
+                Username = testUser.UserName
+            };
+
+            var result = _service.DeleteIngredientAsync(args).Result;
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsSuccess);
+        }
+
+        [Test]
+        public void Delete_GivenUnusedIngredient_Succeeds()
+        {
+            var testUser = _data.TestUser1;
+
+            var args = new DeleteIngredientArgs
+            {
+                Id = 7,
+                Username = testUser.UserName
+            };
+
+            var result = _service.DeleteIngredientAsync(args).Result;
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
         }
     }
 }

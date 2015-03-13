@@ -2,7 +2,16 @@
 {
     public enum RecipeCategory
     {
+        Breakfast,
+        Lunch,
+        Beverages,
+        Appetizers,
+        Soups,
+        Salads,
         MainDishes,
-        SideDishes
+        SideDishes,
+        Desserts,
+        Breads,
+        Other
     }
 }
