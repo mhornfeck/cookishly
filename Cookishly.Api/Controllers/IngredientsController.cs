@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Cookishly.Services.Args;
 using Cookishly.Services.Contract;
 
 namespace Cookishly.Api.Controllers
 {
-    public class IngredientsController : ApiController
+    public class IngredientsController : ApiControllerBase
     {
         private readonly IIngredientService _ingredientService;
 
@@ -16,13 +18,7 @@ namespace Cookishly.Api.Controllers
         public async Task<IHttpActionResult> Get(GetIngredientsArgs args)
         {
             var result = await _ingredientService.GetIngredientsAsync(args);
-
-            if (result.IsSuccess == false)
-            {
-                return InternalServerError();
-            }
-            
-            return Ok(result.Data);
+            return result.IsSuccess == false ? GetErrorResult(result) : Ok(result.Content);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Cookishly.Domain;
-using Cookishly.Services.Concrete;
+using Cookishly.Services.Args;
+using Cookishly.Services.Results;
 
 namespace Cookishly.Services.Contract
 {
@@ -8,7 +9,7 @@ namespace Cookishly.Services.Contract
     {
         Task<IResult<Ingredient>> CreateIngredientAsync(SaveIngredientArgs args);
         Task<IResult<Ingredient>> UpdateIngredientAsync(SaveIngredientArgs args);
-        Task<IPagedResult<Ingredient>> GetIngredientsAsync(GetIngredientsArgs args);
+        Task<IResult<IPagedResult<Ingredient>>> GetIngredientsAsync(GetIngredientsArgs args);
         Task<IResult> DeleteIngredientAsync(DeleteIngredientArgs args);
     }
 }

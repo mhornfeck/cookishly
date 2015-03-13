@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Cookishly.Domain;
+using Cookishly.Services.Contract;
 
-namespace Cookishly.Services.Contract
+namespace Cookishly.Services.Args
 {
     public class GetRecipesArgs : PagingArgs
     {

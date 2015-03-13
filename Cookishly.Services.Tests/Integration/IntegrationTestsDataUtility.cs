@@ -196,12 +196,12 @@ namespace Cookishly.Services.Tests.Integration
 
                 if (context.Users.Any(x => x.UserName.Equals(TestUser1.UserName)) == false)
                 {
-                    manager.Create(TestUser1);
+                    manager.Create(TestUser1, "recipe8801");
                 }
 
                 if (context.Users.Any(x => x.UserName.Equals(TestUser2.UserName)) == false)
                 {
-                    manager.Create(TestUser2);
+                    manager.Create(TestUser2, "recipe8802");
                 }
 
                 context.Ingredients.AddOrUpdate(BuiltInIngredients);

@@ -1,5 +1,8 @@
 ﻿using System.Linq;
+using Cookishly.Data;
+using Cookishly.Data.Entities;
 using Cookishly.Domain;
+using Cookishly.Services.Args;
 using Cookishly.Services.Concrete;
 using Cookishly.Services.Contract;
 using NUnit.Framework;
@@ -41,12 +44,12 @@ namespace Cookishly.Services.Tests.Integration
             Assert.IsNotNull(result);
             Assert.IsTrue(result.IsSuccess);
 
-            var resultPayload = result.Payload;
+            var resultContent = result.Content;
 
-            Assert.IsNotNull(resultPayload);
-            Assert.AreEqual(ingredient.Name, resultPayload.Name);
-            Assert.AreEqual(ingredient.Category, resultPayload.Category);
-            Assert.IsTrue(resultPayload.Id > 0);
+            Assert.IsNotNull(resultContent);
+            Assert.AreEqual(ingredient.Name, resultContent.Name);
+            Assert.AreEqual(ingredient.Category, resultContent.Category);
+            Assert.IsTrue(resultContent.Id > 0);
         }
 
         [Test]
@@ -114,12 +117,12 @@ namespace Cookishly.Services.Tests.Integration
             Assert.IsNotNull(result);
             Assert.IsTrue(result.IsSuccess);
 
-            var resultPayload = result.Payload;
+            var resultContent = result.Content;
 
-            Assert.IsNotNull(resultPayload);
-            Assert.AreEqual(ingredient.Name, resultPayload.Name);
-            Assert.AreEqual(ingredient.Category, resultPayload.Category);
-            Assert.AreEqual(ingredient.Id, resultPayload.Id);
+            Assert.IsNotNull(resultContent);
+            Assert.AreEqual(ingredient.Name, resultContent.Name);
+            Assert.AreEqual(ingredient.Category, resultContent.Category);
+            Assert.AreEqual(ingredient.Id, resultContent.Id);
         }
 
         [Test]
@@ -143,12 +146,14 @@ namespace Cookishly.Services.Tests.Integration
             var expectedRecordCount = _data.BuiltInIngredients.Count() +
                                       _data.CustomIngredients.Count(x => x.ProfileId.Equals(testUser.ProfileId));
 
-            Assert.AreEqual(expectedRecordCount, result.TotalRecords);
-            Assert.AreEqual(args.Offset, result.PageNumber);
-            Assert.AreEqual(args.Limit, result.PageSize);
+            var resultContent = result.Content;
 
-            Assert.IsNotNull(result.Data);
-            Assert.IsTrue(result.Data.Count <= args.Limit);
+            Assert.IsNotNull(resultContent);
+            Assert.AreEqual(expectedRecordCount, resultContent.TotalItemCount);
+            Assert.AreEqual(args.Offset, resultContent.PageNumber);
+            Assert.AreEqual(args.Limit, resultContent.PageSize);
+
+            Assert.IsTrue(resultContent.PageItemCount <= args.Limit);
         }
 
         [Test]
@@ -190,9 +195,21 @@ namespace Cookishly.Services.Tests.Integration
         {
             var testUser = _data.TestUser1;
 
+            var newIngredient = new IngredientEntity
+            {
+                Name = "Test Ingredient",
+                ProfileId = testUser.ProfileId
+            };
+
+            using (var context = new CookishlyContext())
+            {
+                context.Ingredients.Add(newIngredient);
+                context.SaveChanges();
+            }
+
             var args = new DeleteIngredientArgs
             {
-                IngredientId = 7,
+                IngredientId = newIngredient.Id,
                 Username = testUser.UserName
             };
 

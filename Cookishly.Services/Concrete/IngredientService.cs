@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Cookishly.Data;
 using Cookishly.Data.Entities;
 using Cookishly.Domain;
+using Cookishly.Services.Args;
 using Cookishly.Services.Contract;
+using Cookishly.Services.Results;
 
 namespace Cookishly.Services.Concrete
 {
@@ -24,7 +26,7 @@ namespace Cookishly.Services.Concrete
                 context.Ingredients.Add(newIngredientEntity);
                 await context.SaveChangesAsync();
 
-                return ServiceResult<Ingredient>.Success(newIngredientEntity.ToDomain());
+                return ContentResult<Ingredient>.Success(newIngredientEntity.ToDomain());
             }
         }
 
@@ -39,19 +41,19 @@ namespace Cookishly.Services.Concrete
                 {
                     if (ingredientEntity.ProfileId.Equals(user.ProfileId) == false)
                     {
-                        return ServiceResult<Ingredient>.Fail("Failed to update ingredient. User is not authorized.");
+                        return ContentResult<Ingredient>.Fail("Failed to update ingredient. User is not authorized.");
                     }
 
                     ingredientEntity.Update(args.Ingredient);
                     await context.SaveChangesAsync();
-                    return ServiceResult<Ingredient>.Success(ingredientEntity.ToDomain());
+                    return ContentResult<Ingredient>.Success(ingredientEntity.ToDomain());
                 }
 
-                return ServiceResult<Ingredient>.Fail("Failed to update ingredient. Ingredient not found.");
+                return ContentResult<Ingredient>.Fail("Failed to update ingredient. Ingredient not found.");
             }
         }
 
-        public async Task<IPagedResult<Ingredient>> GetIngredientsAsync(GetIngredientsArgs args)
+        public async Task<IResult<IPagedResult<Ingredient>>> GetIngredientsAsync(GetIngredientsArgs args)
         {
             using (var context = new CookishlyContext())
             {
@@ -74,13 +76,16 @@ namespace Cookishly.Services.Concrete
                     ingredientEntities = ingredientEntities.Where(x => x.Category == args.IngredientCategory.Value);
                 }
 
-                var pageIngredients = await ingredientEntities.OrderBy(x => x.Name)
+                var pageIngredientEntities = await ingredientEntities.OrderBy(x => x.Name)
                     .Skip(args.Limit * args.Offset)
-                    .Take(args.Offset).ToListAsync();
+                    .Take(args.Limit)
+                    .ToListAsync();
 
-                var ingredients = pageIngredients.Select(x => x.ToDomain()).ToList();
+                var pageIngredients = pageIngredientEntities.Select(x => x.ToDomain()).ToList();
+                var resultData = new PagedResult<Ingredient>(pageIngredients, await ingredientEntities.CountAsync(), 
+                    args.Limit, args.Offset);
 
-                return PagedResult<Ingredient>.Success(ingredientEntities.Count(), args.Limit, args.Offset, ingredients);
+                return ContentResult<IPagedResult<Ingredient>>.Success(resultData);
             }
         }
 

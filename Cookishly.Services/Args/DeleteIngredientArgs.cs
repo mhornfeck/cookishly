@@ -1,4 +1,4 @@
-﻿namespace Cookishly.Services.Contract
+﻿namespace Cookishly.Services.Args
 {
     public class DeleteIngredientArgs
     {

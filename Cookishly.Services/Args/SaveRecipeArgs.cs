@@ -1,6 +1,6 @@
 ﻿using Cookishly.Domain;
 
-namespace Cookishly.Services.Contract
+namespace Cookishly.Services.Args
 {
     public class SaveRecipeArgs
     {
