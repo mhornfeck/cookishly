@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Cookishly.Services.Args;
@@ -15,8 +17,13 @@ namespace Cookishly.Api.Controllers
             _ingredientService = ingredientService;
         }
 
-        public async Task<IHttpActionResult> Get(GetIngredientsArgs args)
+        public async Task<IHttpActionResult> Get([FromUri] GetIngredientsArgs args)
         {
+            if (!ModelState.IsValid)
+            {
+                BadRequest(ModelState);
+            }
+
             var result = await _ingredientService.GetIngredientsAsync(args);
             return result.IsSuccess == false ? GetErrorResult(result) : Ok(result.Content);
         }

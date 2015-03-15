@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Cookishly.Data;
@@ -55,6 +56,7 @@ namespace Cookishly.Services.Concrete
 
         public async Task<IResult<IPagedResult<Ingredient>>> GetIngredientsAsync(GetIngredientsArgs args)
         {
+
             using (var context = new CookishlyContext())
             {
                 var user = await context.FindUserByUsernameAsync(args.Username);
