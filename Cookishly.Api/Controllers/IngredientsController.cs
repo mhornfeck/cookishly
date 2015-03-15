@@ -8,6 +8,7 @@ using Cookishly.Services.Contract;
 
 namespace Cookishly.Api.Controllers
 {
+    [Authorize]
     public class IngredientsController : ApiControllerBase
     {
         private readonly IIngredientService _ingredientService;
@@ -24,6 +25,7 @@ namespace Cookishly.Api.Controllers
                 BadRequest(ModelState);
             }
 
+            args.Username = RequestContext.Principal.Identity.Name;
             var result = await _ingredientService.GetIngredientsAsync(args);
             return result.IsSuccess == false ? GetErrorResult(result) : Ok(result.Content);
         }

@@ -7,7 +7,6 @@ namespace Cookishly.Services.Args
 {
     public class GetIngredientsArgs : PagingArgs
     {
-        [Required]
         public string Username { get; set; }
 
         public IngredientCategory? IngredientCategory { get; set; }
