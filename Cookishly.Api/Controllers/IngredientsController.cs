@@ -25,9 +25,16 @@ namespace Cookishly.Api.Controllers
                 BadRequest(ModelState);
             }
 
-            args.Username = RequestContext.Principal.Identity.Name;
-            var result = await _ingredientService.GetIngredientsAsync(args);
-            return result.IsSuccess == false ? GetErrorResult(result) : Ok(result.Content);
+            try
+            {
+                args.Username = RequestContext.Principal.Identity.Name;
+                var ingredients = await _ingredientService.GetIngredientsAsync(args);
+                return Ok(ingredients);
+            }
+            catch (Exception exception)
+            {
+                return InternalServerError(exception);
+            }
         }
     }
 }

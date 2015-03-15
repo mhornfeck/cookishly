@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Cookishly.Data;
 using Cookishly.Data.Entities;
 using Cookishly.Domain;
@@ -25,7 +26,7 @@ namespace Cookishly.Services.Tests.Integration
         }
 
         [Test]
-        public void Create_GivenValidIngredient_CreatesIngredient()
+        public async void Create_GivenValidIngredient_CreatesIngredient()
         {
             var ingredient = new Ingredient
             {
@@ -39,21 +40,17 @@ namespace Cookishly.Services.Tests.Integration
                 Username = _data.TestUser1.UserName
             };
 
-            var result = _service.CreateIngredientAsync(args).Result;
+            var result = await _service.CreateIngredientAsync(args);
 
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsSuccess);
-
-            var resultContent = result.Content;
-
-            Assert.IsNotNull(resultContent);
-            Assert.AreEqual(ingredient.Name, resultContent.Name);
-            Assert.AreEqual(ingredient.Category, resultContent.Category);
-            Assert.IsTrue(resultContent.Id > 0);
+            Assert.AreEqual(ingredient.Name, result.Name);
+            Assert.AreEqual(ingredient.Category, result.Category);
+            Assert.IsTrue(result.Id > 0);
         }
 
         [Test]
-        public void Update_GivenBuiltInIngredientId_Fails()
+        [ExpectedException(typeof(Exception))]
+        public async void Update_GivenBuiltInIngredientId_Fails()
         {
             var ingredient = new Ingredient
             {
@@ -68,14 +65,12 @@ namespace Cookishly.Services.Tests.Integration
                 Username = _data.TestUser1.UserName
             };
 
-            var result = _service.UpdateIngredientAsync(args).Result;
-
-            Assert.IsNotNull(result);
-            Assert.IsFalse(result.IsSuccess);
+            await _service.UpdateIngredientAsync(args);
         }
 
         [Test]
-        public void Update_GivenOtherProfilesIngredientId_Fails()
+        [ExpectedException(typeof(Exception))]
+        public async void Update_GivenOtherProfilesIngredientId_Fails()
         {
             var ingredient = new Ingredient
             {
@@ -90,14 +85,11 @@ namespace Cookishly.Services.Tests.Integration
                 Username = _data.TestUser1.UserName
             };
 
-            var result = _service.UpdateIngredientAsync(args).Result;
-
-            Assert.IsNotNull(result);
-            Assert.IsFalse(result.IsSuccess);
+            await _service.UpdateIngredientAsync(args);
         }
 
         [Test]
-        public void Update_GivenValidIngredientArgs_Succeeds()
+        public async void Update_GivenValidIngredientArgs_Succeeds()
         {
             var ingredient = new Ingredient
             {
@@ -112,21 +104,16 @@ namespace Cookishly.Services.Tests.Integration
                 Username = _data.TestUser1.UserName
             };
 
-            var result = _service.UpdateIngredientAsync(args).Result;
+            var result = await _service.UpdateIngredientAsync(args);
 
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsSuccess);
-
-            var resultContent = result.Content;
-
-            Assert.IsNotNull(resultContent);
-            Assert.AreEqual(ingredient.Name, resultContent.Name);
-            Assert.AreEqual(ingredient.Category, resultContent.Category);
-            Assert.AreEqual(ingredient.Id, resultContent.Id);
+            Assert.AreEqual(ingredient.Name, result.Name);
+            Assert.AreEqual(ingredient.Category, result.Category);
+            Assert.AreEqual(ingredient.Id, result.Id);
         }
 
         [Test]
-        public void Get_GivenAllIngredientTypes_ReturnsCorrectCounts()
+        public async void Get_GivenAllIngredientTypes_ReturnsCorrectCounts()
         {
             var testUser = _data.TestUser2;
 
@@ -138,26 +125,22 @@ namespace Cookishly.Services.Tests.Integration
                 Offset = 1
             };
 
-            var result = _service.GetIngredientsAsync(args).Result;
-
-            Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsSuccess);
+            var result = await _service.GetIngredientsAsync(args);
 
             var expectedRecordCount = _data.BuiltInIngredients.Count() +
                                       _data.CustomIngredients.Count(x => x.ProfileId.Equals(testUser.ProfileId));
 
-            var resultContent = result.Content;
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedRecordCount, result.TotalItemCount);
+            Assert.AreEqual(args.Offset, result.PageNumber);
+            Assert.AreEqual(args.Limit, result.PageSize);
 
-            Assert.IsNotNull(resultContent);
-            Assert.AreEqual(expectedRecordCount, resultContent.TotalItemCount);
-            Assert.AreEqual(args.Offset, resultContent.PageNumber);
-            Assert.AreEqual(args.Limit, resultContent.PageSize);
-
-            Assert.IsTrue(resultContent.PageItemCount <= args.Limit);
+            Assert.IsTrue(result.PageItemCount <= args.Limit);
         }
 
         [Test]
-        public void Delete_GivenIngredientUsedInRecipes_Fails()
+        [ExpectedException(typeof(Exception))]
+        public async void Delete_GivenIngredientUsedInRecipes_Fails()
         {
             var testUser = _data.TestUser1;
 
@@ -167,14 +150,12 @@ namespace Cookishly.Services.Tests.Integration
                 Username = testUser.UserName
             };
 
-            var result = _service.DeleteIngredientAsync(args).Result;
-
-            Assert.IsNotNull(result);
-            Assert.IsFalse(result.IsSuccess);
+            await _service.DeleteIngredientAsync(args);
         }
 
         [Test]
-        public void Delete_GivenBuiltInIngredient_Fails()
+        [ExpectedException(typeof(Exception))]
+        public async void Delete_GivenBuiltInIngredient_Fails()
         {
             var testUser = _data.TestUser1;
 
@@ -184,14 +165,11 @@ namespace Cookishly.Services.Tests.Integration
                 Username = testUser.UserName
             };
 
-            var result = _service.DeleteIngredientAsync(args).Result;
-
-            Assert.IsNotNull(result);
-            Assert.IsFalse(result.IsSuccess);
+            await _service.DeleteIngredientAsync(args);
         }
 
         [Test]
-        public void Delete_GivenUnusedIngredient_Succeeds()
+        public async void Delete_GivenUnusedIngredient_Succeeds()
         {
             var testUser = _data.TestUser1;
 
@@ -213,10 +191,7 @@ namespace Cookishly.Services.Tests.Integration
                 Username = testUser.UserName
             };
 
-            var result = _service.DeleteIngredientAsync(args).Result;
-
-            Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsSuccess);
+            await _service.DeleteIngredientAsync(args);
         }
     }
 }

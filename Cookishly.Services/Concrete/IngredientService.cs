@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Cookishly.Data;
@@ -13,7 +14,7 @@ namespace Cookishly.Services.Concrete
 {
     public class IngredientService : IIngredientService
     {
-        public async Task<IResult<Ingredient>> CreateIngredientAsync(SaveIngredientArgs args)
+        public async Task<Ingredient> CreateIngredientAsync(SaveIngredientArgs args)
         {
             using (var context = new CookishlyContext())
             {
@@ -27,36 +28,35 @@ namespace Cookishly.Services.Concrete
                 context.Ingredients.Add(newIngredientEntity);
                 await context.SaveChangesAsync();
 
-                return ContentResult<Ingredient>.Success(newIngredientEntity.ToDomain());
+                return newIngredientEntity.ToDomain();
             }
         }
 
-        public async Task<IResult<Ingredient>> UpdateIngredientAsync(SaveIngredientArgs args)
+        public async Task<Ingredient> UpdateIngredientAsync(SaveIngredientArgs args)
         {
             using (var context = new CookishlyContext())
             {
                 var user = await context.FindUserByUsernameAsync(args.Username);
                 var ingredientEntity = await context.Ingredients.FindAsync(args.Ingredient.Id);
 
-                if (ingredientEntity != null)
+                if (ingredientEntity == null)
                 {
-                    if (ingredientEntity.ProfileId.Equals(user.ProfileId) == false)
-                    {
-                        return ContentResult<Ingredient>.Fail("Failed to update ingredient. User is not authorized.");
-                    }
-
-                    ingredientEntity.Update(args.Ingredient);
-                    await context.SaveChangesAsync();
-                    return ContentResult<Ingredient>.Success(ingredientEntity.ToDomain());
+                    throw new Exception("Failed to update ingredient. Ingredient not found.");
                 }
 
-                return ContentResult<Ingredient>.Fail("Failed to update ingredient. Ingredient not found.");
+                if (ingredientEntity.ProfileId.Equals(user.ProfileId) == false)
+                {
+                    throw new Exception("Failed to update ingredient. User is not authorized.");
+                }
+
+                ingredientEntity.Update(args.Ingredient);
+                await context.SaveChangesAsync();
+                return ingredientEntity.ToDomain();
             }
         }
 
-        public async Task<IResult<IPagedResult<Ingredient>>> GetIngredientsAsync(GetIngredientsArgs args)
+        public async Task<IPagedResult<Ingredient>> GetIngredientsAsync(GetIngredientsArgs args)
         {
-
             using (var context = new CookishlyContext())
             {
                 var user = await context.FindUserByUsernameAsync(args.Username);
@@ -87,11 +87,11 @@ namespace Cookishly.Services.Concrete
                 var resultData = new PagedResult<Ingredient>(pageIngredients, await ingredientEntities.CountAsync(), 
                     args.Limit, args.Offset);
 
-                return ContentResult<IPagedResult<Ingredient>>.Success(resultData);
+                return resultData;
             }
         }
 
-        public async Task<IResult> DeleteIngredientAsync(DeleteIngredientArgs args)
+        public async Task DeleteIngredientAsync(DeleteIngredientArgs args)
         {
             using (var context = new CookishlyContext())
             {
@@ -102,18 +102,16 @@ namespace Cookishly.Services.Concrete
 
                 if (ingredient == null)
                 {
-                    return ServiceResult.Fail("Ingredient could not be found or user is not authorized.");
+                    throw new Exception("Ingredient could not be found or user is not authorized.");
                 }
 
                 if (ingredient.IngredientSpecifications.Any())
                 {
-                    return ServiceResult.Fail("Ingredient could not be deleted because it is used in at least one recipe.");
+                    throw new Exception("Ingredient could not be deleted because it is used in at least one recipe.");
                 }
 
                 context.Ingredients.Remove(ingredient);
                 await context.SaveChangesAsync();
-
-                return ServiceResult.Success("Ingredient was deleted.");
             }
         }
     }

@@ -7,9 +7,9 @@ namespace Cookishly.Services.Contract
 {
     public interface IIngredientService
     {
-        Task<IResult<Ingredient>> CreateIngredientAsync(SaveIngredientArgs args);
-        Task<IResult<Ingredient>> UpdateIngredientAsync(SaveIngredientArgs args);
-        Task<IResult<IPagedResult<Ingredient>>> GetIngredientsAsync(GetIngredientsArgs args);
-        Task<IResult> DeleteIngredientAsync(DeleteIngredientArgs args);
+        Task<Ingredient> CreateIngredientAsync(SaveIngredientArgs args);
+        Task<Ingredient> UpdateIngredientAsync(SaveIngredientArgs args);
+        Task<IPagedResult<Ingredient>> GetIngredientsAsync(GetIngredientsArgs args);
+        Task DeleteIngredientAsync(DeleteIngredientArgs args);
     }
 }
