@@ -94,7 +94,7 @@ namespace Cookishly.Services.Tests.Integration
             var ingredient = new Ingredient
             {
                 Id = _data.CustomIngredients.First(x => x.ProfileId == _data.TestUser1.ProfileId).Id,
-                Name = "Goat Cheese",
+                Name = "Feta Cheese",
                 Category = IngredientCategory.Dairy
             };
 

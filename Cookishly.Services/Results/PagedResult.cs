@@ -10,6 +10,11 @@ namespace Cookishly.Services.Results
         public int PageNumber { get; set; }
         public IList<T> Items { get; set; }
 
+        public PagedResult()
+        {
+            Items = new List<T>();
+        }
+
         public PagedResult(IList<T> items, int totalItemCount, int pageSize, int pageNumber)
         {
             Items = items;
