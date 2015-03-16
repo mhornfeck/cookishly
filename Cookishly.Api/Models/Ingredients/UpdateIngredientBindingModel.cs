@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Cookishly.Api.Models
+namespace Cookishly.Api.Models.Ingredients
 {
     public class UpdateIngredientBindingModel : CreateIngredientBindingModel
     {

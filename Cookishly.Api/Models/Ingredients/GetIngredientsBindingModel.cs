@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Cookishly.Domain;
 
-namespace Cookishly.Services.Args
+namespace Cookishly.Api.Models.Ingredients
 {
-    public class GetIngredientsArgs : PagingArgs
+    public class GetIngredientsBindingModel : PagingBindingModel
     {
-        public string Username { get; set; }
-
         public IngredientCategory? IngredientCategory { get; set; }
 
         public IngredientType IngredientType { get; set; }

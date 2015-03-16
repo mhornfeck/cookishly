@@ -58,10 +58,7 @@
   <ItemGroup>
     <Compile Include="Args\ArgsValidationResult.cs" />
     <Compile Include="Concrete\IngredientService.cs" />
-    <Compile Include="Results\FailureType.cs" />
     <Compile Include="Results\IPagedResult.cs" />
-    <Compile Include="Results\IResult.cs" />
-    <Compile Include="Results\ContentResult.cs" />
     <Compile Include="Args\DeleteIngredientArgs.cs" />
     <Compile Include="Args\DeleteRecipeArgs.cs" />
     <Compile Include="Args\GetIngredientsArgs.cs" />
@@ -74,7 +71,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\Messages.cs" />
     <Compile Include="Results\PagedResult.cs" />
-    <Compile Include="Results\ServiceResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cookishly.Data\Cookishly.Data.csproj">

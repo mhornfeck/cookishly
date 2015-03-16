@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Cookishly.Domain;
-using Cookishly.Services.Contract;
 
 namespace Cookishly.Services.Args
 {

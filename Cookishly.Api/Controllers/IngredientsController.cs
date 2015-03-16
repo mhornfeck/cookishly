@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Cookishly.Api.Models;
+using Cookishly.Api.Models.Ingredients;
 using Cookishly.Domain;
 using Cookishly.Services.Args;
 using Cookishly.Services.Contract;
@@ -11,7 +9,7 @@ using Cookishly.Services.Contract;
 namespace Cookishly.Api.Controllers
 {
     [Authorize]
-    public class IngredientsController : ApiControllerBase
+    public class IngredientsController : ApiController
     {
         private readonly IIngredientService _ingredientService;
 
@@ -79,7 +77,7 @@ namespace Cookishly.Api.Controllers
             }
         }
 
-        public async Task<IHttpActionResult> Get([FromUri] GetIngredientsArgs args)
+        public async Task<IHttpActionResult> Get([FromUri] GetIngredientsBindingModel bindingModel)
         {
             if (!ModelState.IsValid)
             {
@@ -88,7 +86,16 @@ namespace Cookishly.Api.Controllers
 
             try
             {
-                args.Username = RequestContext.Principal.Identity.Name;
+                var args = new GetIngredientsArgs
+                {
+                    Username = RequestContext.Principal.Identity.Name,
+                    IngredientCategory = bindingModel.IngredientCategory,
+                    IngredientType = bindingModel.IngredientType,
+                    Limit = bindingModel.Limit,
+                    Offset = bindingModel.Offset,
+                    SearchTerms = bindingModel.SearchTerms
+                };
+
                 var ingredients = await _ingredientService.GetIngredientsAsync(args);
                 return Ok(ingredients);
             }

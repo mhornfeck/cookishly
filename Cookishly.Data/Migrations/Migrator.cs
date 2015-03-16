@@ -1,10 +1,4 @@
-using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using Cookishly.Data.Entities;
-using Cookishly.Domain;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Cookishly.Data.Migrations
 {

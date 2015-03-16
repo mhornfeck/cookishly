@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Http.Results;
 using Cookishly.Api.Controllers;
-using Cookishly.Api.Models;
+using Cookishly.Api.Models.Ingredients;
 using Cookishly.Domain;
 using Cookishly.Services.Args;
 using Cookishly.Services.Contract;
@@ -18,7 +18,7 @@ namespace Cookishly.Api.Tests
         [Test]
         public async void Get_GivenValidArgs_ReturnsPageOfIngredients()
         {
-            var args = new GetIngredientsArgs();
+            var requestData = new GetIngredientsBindingModel();
 
             IPagedResult<Ingredient> ingredientsResult = new PagedResult<Ingredient>
             {
@@ -30,11 +30,11 @@ namespace Cookishly.Api.Tests
             };
 
             var ingredientsService = Substitute.For<IIngredientService>();
-            ingredientsService.GetIngredientsAsync(args).Returns(Task.FromResult(ingredientsResult));
+            ingredientsService.GetIngredientsAsync(Arg.Any<GetIngredientsArgs>()).Returns(Task.FromResult(ingredientsResult));
 
             var controller = new IngredientsController(ingredientsService);
 
-            var result = (await controller.Get(args)) as OkNegotiatedContentResult<IPagedResult<Ingredient>>;
+            var result = (await controller.Get(requestData)) as OkNegotiatedContentResult<IPagedResult<Ingredient>>;
 
             Assert.IsNotNull(result, "Result should be a 200 OK result.");
 

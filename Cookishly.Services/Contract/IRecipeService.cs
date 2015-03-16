@@ -7,9 +7,9 @@ namespace Cookishly.Services.Contract
 {
     public interface IRecipeService
     {
-        Task<IResult<Recipe>> CreateRecipeAsync(SaveRecipeArgs args);
-        Task<IResult<Recipe>> UpdateRecipeAsync(SaveRecipeArgs args);
-        Task<IResult<IPagedResult<Recipe>>> GetRecipesAsync(GetRecipesArgs args);
-        Task<IResult> DeleteRecipeAsync(DeleteRecipeArgs args);
+        Task<Recipe> CreateRecipeAsync(SaveRecipeArgs args);
+        Task<Recipe> UpdateRecipeAsync(SaveRecipeArgs args);
+        Task<IPagedResult<Recipe>> GetRecipesAsync(GetRecipesArgs args);
+        Task DeleteRecipeAsync(DeleteRecipeArgs args);
     }
 }
