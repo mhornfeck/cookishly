@@ -16,7 +16,7 @@ namespace Cookishly.Api.Tests
     public class IngredientsControllerTests
     {
         [Test]
-        public async void Get_GivenValidArgs_ReturnsPageOfIngredients()
+        public async void Get_GivenValidModel_ReturnsPageOfIngredients()
         {
             var requestData = new GetIngredientsBindingModel();
 
@@ -41,6 +41,43 @@ namespace Cookishly.Api.Tests
             var resultContent = result.Content;
             Assert.IsNotNull(resultContent);
             Assert.AreEqual(ingredientsResult, resultContent);
+        }
+
+        [Test]
+        public async void Post_GivenModelWithErrors_ReturnsBadRequest()
+        {
+            var requestData = new CreateIngredientBindingModel();
+
+            var ingredientsService = Substitute.For<IIngredientService>();
+            var controller = new IngredientsController(ingredientsService);
+
+            // simulate model state errors
+            controller.ModelState.AddModelError("Error", "An error occured.");
+
+            var result = await controller.Post(requestData);
+
+            Assert.IsInstanceOf<InvalidModelStateResult>(result);
+        }
+
+        [Test]
+        public async void Post_GivenValidModel_ReturnsOk()
+        {
+            var requestData = new CreateIngredientBindingModel();
+
+            var ingredientResult = new Ingredient();
+
+            var ingredientsService = Substitute.For<IIngredientService>();
+            ingredientsService.CreateIngredientAsync(Arg.Any<SaveIngredientArgs>()).Returns(Task.FromResult(ingredientResult));
+
+            var controller = new IngredientsController(ingredientsService);
+
+            var result = (await controller.Post(requestData)) as OkNegotiatedContentResult<Ingredient>;
+
+            Assert.IsNotNull(result, "Result should be a 200 OK result.");
+
+            var resultContent = result.Content;
+            Assert.IsNotNull(resultContent);
+            Assert.AreEqual(ingredientResult, resultContent);
         }
     }
 }
