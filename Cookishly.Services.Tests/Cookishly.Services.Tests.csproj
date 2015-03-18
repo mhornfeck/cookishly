@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Integration\IngredientServiceTests.cs" />
     <Compile Include="Integration\IntegrationTestsDataUtility.cs" />
+    <Compile Include="Integration\RecipeServiceTests.cs" />
     <Compile Include="Integration\ServiceTestsSetupFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

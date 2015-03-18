@@ -36,7 +36,6 @@ namespace Cookishly.Data.Entities
                 Quantity = Quantity,
                 Units = Units,
                 Preparation = Preparation,
-                Ingredient = Ingredient.ToDomain(),
                 RecipeId = RecipeId
             };
         }
@@ -46,7 +45,7 @@ namespace Cookishly.Data.Entities
             Quantity = ingredientSpecification.Quantity;
             Units = ingredientSpecification.Units;
             Preparation = ingredientSpecification.Preparation;
-            IngredientId = ingredientSpecification.Ingredient.Id;
+            IngredientId = ingredientSpecification.IngredientId;
             RecipeId = ingredientSpecification.RecipeId;
         }
     }

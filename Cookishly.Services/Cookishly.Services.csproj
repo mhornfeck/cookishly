@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Args\ArgsValidationResult.cs" />
     <Compile Include="Concrete\IngredientService.cs" />
+    <Compile Include="Concrete\RecipeService.cs" />
     <Compile Include="Results\IPagedResult.cs" />
     <Compile Include="Args\DeleteIngredientArgs.cs" />
     <Compile Include="Args\DeleteRecipeArgs.cs" />
