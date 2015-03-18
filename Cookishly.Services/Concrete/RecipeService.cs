@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Cookishly.Data;
@@ -75,14 +76,57 @@ namespace Cookishly.Services.Concrete
             }
         }
 
-        public Task<IPagedResult<Recipe>> GetRecipesAsync(GetRecipesArgs args)
+        public async Task<IPagedResult<Recipe>> GetRecipesAsync(GetRecipesArgs args)
         {
-            throw new NotImplementedException();
+            using (var context = new CookishlyContext())
+            {
+                var user = await context.FindUserByUsernameAsync(args.Username);
+
+                var recipeEntities = context.Recipes.Where(x => x.ProfileId == null || x.ProfileId == user.ProfileId);
+
+                if (args.RecipeCategory.HasValue)
+                {
+                    recipeEntities = recipeEntities.Where(x => x.Category == args.RecipeCategory.Value);
+                }
+
+                if (args.IngredientIds.Any())
+                {
+                    recipeEntities = recipeEntities.Where(r => args.IngredientIds
+                        .All(id => r.Ingredients
+                            .Select(i => i.IngredientId)
+                            .Any(iid => iid == id)));
+                }
+
+                var pageRecipeEntities = await recipeEntities.OrderBy(x => x.Name)
+                    .Skip(args.Limit * args.Offset)
+                    .Take(args.Limit)
+                    .ToListAsync();
+
+                var pageRecipes = pageRecipeEntities.Select(x => x.ToDomain()).ToList();
+                var resultData = new PagedResult<Recipe>(pageRecipes, await recipeEntities.CountAsync(),
+                    args.Limit, args.Offset);
+
+                return resultData;
+            }
         }
 
-        public Task DeleteRecipeAsync(DeleteRecipeArgs args)
+        public async Task DeleteRecipeAsync(DeleteRecipeArgs args)
         {
-            throw new NotImplementedException();
+            using (var context = new CookishlyContext())
+            {
+                var user = await context.FindUserByUsernameAsync(args.Username);
+
+                var recipe = context.Recipes.Where(x => x.ProfileId == user.ProfileId)
+                    .SingleOrDefault(x => x.Id == args.RecipeId);
+
+                if (recipe == null)
+                {
+                    throw new Exception("Recipe could not be found or user is not authorized.");
+                }
+
+                context.Recipes.Remove(recipe);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

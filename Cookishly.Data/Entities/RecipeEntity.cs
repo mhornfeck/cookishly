@@ -29,7 +29,7 @@ namespace Cookishly.Data.Entities
 
         public RecipeCategory Category { get; set; }
 
-        public int ProfileId { get; set; }
+        public int? ProfileId { get; set; }
 
         public ProfileEntity Profile { get; set; }
 
@@ -53,7 +53,8 @@ namespace Cookishly.Data.Entities
                 Name = Name,
                 ImageUrl = ImageUrl,
                 Category = Category,
-                Ingredients = Ingredients.Select(x => x.ToDomain()).ToList()
+                Ingredients = Ingredients.Select(x => x.ToDomain()).ToList(),
+                Steps = Steps.Select(x => x.ToDomain()).ToList()
             };
         }
 

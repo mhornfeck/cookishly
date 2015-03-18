@@ -1,4 +1,5 @@
-﻿using Cookishly.Domain;
+﻿using System.Security.Cryptography;
+using Cookishly.Domain;
 
 namespace Cookishly.Data.Entities
 {
@@ -18,5 +19,16 @@ namespace Cookishly.Data.Entities
         public int RecipeId { get; set; }
 
         public RecipeEntity Recipe { get; set; }
+
+        public RecipeStep ToDomain()
+        {
+            return new RecipeStep
+            {
+                Id = Id,
+                Ordinal = Ordinal,
+                Description = Description,
+                RecipeId = RecipeId
+            };
+        }
     }
 }
