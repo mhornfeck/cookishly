@@ -18,19 +18,9 @@ namespace Cookishly.Services.Concrete
             {
                 var user = await context.FindUserByUsernameAsync(args.Username);
 
-                var newRecipeEntity = new RecipeEntity
+                var newRecipeEntity = new RecipeEntity(args.Recipe)
                 {
-                    ProfileId = user.ProfileId,
-                    Name = args.Recipe.Name,
-                    ImageUrl = args.Recipe.ImageUrl,
-                    Category = args.Recipe.Category,
-                    Ingredients = args.Recipe.Ingredients.Select(x => new IngredientSpecificationEntity
-                    {
-                        IngredientId = x.IngredientId,
-                        Quantity = x.Quantity,
-                        Units = x.Units,
-                        Preparation = x.Preparation
-                    }).ToList()
+                    ProfileId = user.ProfileId
                 };
 
                 context.Recipes.Add(newRecipeEntity);
@@ -56,6 +46,8 @@ namespace Cookishly.Services.Concrete
                 {
                     throw new Exception("Failed to update recipe. User is not authorized.");
                 }
+
+                recipeEntity.UpdateProperties(args.Recipe);
 
                 var specificationsToDelete = recipeEntity.Ingredients.Where(x => args.Recipe.Ingredients
                     .Select(i => i.Id)

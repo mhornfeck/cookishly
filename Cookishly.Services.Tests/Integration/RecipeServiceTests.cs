@@ -31,7 +31,7 @@ namespace Cookishly.Services.Tests.Integration
                 Id = 1,
                 Category = RecipeCategory.MainDishes,
                 ImageUrl = "",
-                Name = "Chili",
+                Name = "Chili with Black Beans",
                 Ingredients = new List<IngredientSpecification>
                 {
                     new IngredientSpecification

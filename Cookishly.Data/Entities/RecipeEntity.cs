@@ -15,6 +15,14 @@ namespace Cookishly.Data.Entities
             _steps = new List<RecipeStepEntity>();
         }
 
+        public RecipeEntity(Recipe recipe)
+        {
+            UpdateProperties(recipe);
+
+            _ingredients = recipe.Ingredients.Select(x => new IngredientSpecificationEntity(x)).ToList();
+            _steps = recipe.Steps.Select(x => new RecipeStepEntity(x)).ToList();
+        }
+
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }
@@ -47,6 +55,13 @@ namespace Cookishly.Data.Entities
                 Category = Category,
                 Ingredients = Ingredients.Select(x => x.ToDomain()).ToList()
             };
+        }
+
+        public void UpdateProperties(Recipe recipe)
+        {
+            Name = recipe.Name;
+            ImageUrl = recipe.ImageUrl;
+            Category = recipe.Category;
         }
     }
 }
