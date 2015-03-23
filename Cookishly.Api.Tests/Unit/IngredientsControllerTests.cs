@@ -10,7 +10,7 @@ using Cookishly.Services.Results;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Cookishly.Api.Tests
+namespace Cookishly.Api.Tests.Unit
 {
     [TestFixture]
     public class IngredientsControllerTests
