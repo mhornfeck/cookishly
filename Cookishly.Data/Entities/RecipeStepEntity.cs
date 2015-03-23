@@ -5,6 +5,11 @@ namespace Cookishly.Data.Entities
 {
     public class RecipeStepEntity : EntityBase
     {
+        public RecipeStepEntity()
+        {
+            
+        }
+
         public RecipeStepEntity(RecipeStep recipeStep)
         {
             Ordinal = recipeStep.Ordinal;

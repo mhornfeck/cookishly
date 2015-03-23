@@ -54,6 +54,25 @@ namespace Cookishly.Services.Concrete
             }
         }
 
+        public async Task<Ingredient> GetIngredientAsync(GetIngredientArgs args)
+        {
+            using (var context = new CookishlyContext())
+            {
+                var user = await context.FindUserByUsernameAsync(args.Username);
+
+                var ingredientEntities = context.Ingredients.Where(x => x.ProfileId == null || x.ProfileId == user.ProfileId);
+
+                var ingredient = await ingredientEntities.FirstOrDefaultAsync(x => x.Id == args.IngredientId);
+
+                if (ingredient == null)
+                {
+                    throw new Exception("Ingredient could not be found or user is not authorized.");
+                }
+
+                return ingredient.ToDomain();
+            }
+        }
+
         public async Task<IPagedResult<Ingredient>> GetIngredientsAsync(GetIngredientsArgs args)
         {
             using (var context = new CookishlyContext())

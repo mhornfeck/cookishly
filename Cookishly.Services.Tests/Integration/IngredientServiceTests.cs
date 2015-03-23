@@ -139,6 +139,42 @@ namespace Cookishly.Services.Tests.Integration
         }
 
         [Test]
+        public async void GetIngredient_GivenValidId_ReturnsCorrectIngredient()
+        {
+            var testUser = _data.TestUser2;
+            var ingredient = _data.CustomIngredients.First(x => x.ProfileId == testUser.ProfileId);
+
+            var args = new GetIngredientArgs
+            {
+                Username = testUser.UserName,
+                IngredientId = ingredient.Id
+            };
+
+            var result = await _service.GetIngredientAsync(args);
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual(ingredient.Id, result.Id);
+            Assert.AreEqual(ingredient.Name, result.Name);
+        }
+
+        [Test]
+        [ExpectedException(typeof(Exception))]
+        public async void GetIngredient_GivenInvalidId_Throws()
+        {
+            var testUser = _data.TestUser2;
+            var ingredient = _data.CustomIngredients.First(x => x.ProfileId != testUser.ProfileId);
+
+            var args = new GetIngredientArgs()
+            {
+                Username = testUser.UserName,
+                IngredientId = ingredient.Id
+            };
+
+            var result = await _service.GetIngredientAsync(args);
+        }
+
+        [Test]
         [ExpectedException(typeof(Exception))]
         public async void Delete_GivenIngredientUsedInRecipes_Fails()
         {
