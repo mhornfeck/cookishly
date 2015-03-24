@@ -19,18 +19,26 @@ select,
 textarea {
   max-width: 280px;
 }
-.login h1 {
+.login h1,
+.register h1 {
   font-family: 'Marcellus', serif;
   color: #025846;
   text-align: center;
 }
-.login p {
+.login p,
+.register p {
   text-align: center;
 }
-.login input {
+.login input,
+.register input {
   max-width: none;
 }
-.login button {
+.login .btn,
+.register .btn {
   width: 100%;
+}
+.register .signed-up-text {
+  margin: 0;
+  padding: 10px 15px;
 }
 /*# sourceMappingURL=site.css.map */

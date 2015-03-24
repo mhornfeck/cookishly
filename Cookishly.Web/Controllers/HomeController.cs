@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Cookishly.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
