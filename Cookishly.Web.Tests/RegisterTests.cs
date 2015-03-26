@@ -9,7 +9,7 @@ namespace Cookishly.Web.Tests
     public class RegisterTests
     {
         [Test]
-        public async void ValidRegistration()
+        public void ValidRegistration()
         {
             BrowserHost.Instance.Application.Browser
                 .Navigate()

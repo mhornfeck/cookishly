@@ -1,0 +1,36 @@
+﻿@model Cookishly.Web.Models.Ingredients.BrowseIngredientsViewModel
+
+<div class="navbar navbar-subnav">
+    <div class="container">
+        <div class="navbar-header">
+            <span class="page-title navbar-brand">@Model.Title</span>
+        </div>
+        <div class="navbar-collapse collapse">
+            @Html.Partial("_SubNavLinks");
+            <div class="navbar-right">
+                <button type="button" class="btn btn-default navbar-btn">Add Ingredient</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                @foreach (var category in Model.Categories)
+                {
+                    <a href="#" class="list-group-item" data-val="@category.Value">@category.Text</a>
+                }
+            </div>
+        </div>
+        <div class="col-md-10">
+            All the things.
+        </div>
+    </div>
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+</div>
+

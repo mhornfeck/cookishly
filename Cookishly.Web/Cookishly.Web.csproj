@@ -47,6 +47,15 @@
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -99,6 +108,9 @@
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -156,6 +168,9 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Controllers\IngredientController.cs" />
+    <Compile Include="Models\Ingredients\BrowseIngredientsViewModel.cs" />
     <Compile Include="Services\ApplicationUserManager.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\ApplicationSignInManager.cs" />
@@ -249,6 +264,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutAnonymous.cshtml" />
+    <Content Include="Views\Shared\_SubLayout.cshtml" />
+    <Content Include="Views\Ingredient\Index.cshtml" />
+    <Content Include="Views\Ingredient\_SubNavLinks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -264,6 +282,14 @@
     <ProjectReference Include="..\Cookishly.Data\Cookishly.Data.csproj">
       <Project>{38564DCE-2E1A-40E4-B610-A50F8B2D2DB3}</Project>
       <Name>Cookishly.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cookishly.Domain\Cookishly.Domain.csproj">
+      <Project>{405CAD18-8047-43B1-BB95-C2361D4B593E}</Project>
+      <Name>Cookishly.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cookishly.Services\Cookishly.Services.csproj">
+      <Project>{468A4B76-C15D-4441-A785-65D3E5AE97D7}</Project>
+      <Name>Cookishly.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

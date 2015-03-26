@@ -6855,4 +6855,12 @@ textarea {
   margin: 0;
   padding: 10px 15px;
 }
+.navbar-subnav {
+  background-color: #2c3e50;
+  min-height: 60px;
+  margin-top: 10px;
+}
+.navbar-subnav .navbar-header {
+  color: #fff;
+}
 /*# sourceMappingURL=site.css.map */
