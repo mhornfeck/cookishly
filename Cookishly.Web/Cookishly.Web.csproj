@@ -225,6 +225,14 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Modules\account.login.js" />
+    <Content Include="Scripts\Modules\accountlogin.js">
+      <DependentUpon>accountlogin.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Modules\accountlogin.min.js">
+      <DependentUpon>accountlogin.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Modules\app.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -267,6 +275,10 @@
     <Content Include="Views\Shared\_SubLayout.cshtml" />
     <Content Include="Views\Ingredient\Index.cshtml" />
     <Content Include="Views\Ingredient\_SubNavLinks.cshtml" />
+    <Content Include="Scripts\Modules\accountlogin.js.bundle" />
+    <Content Include="Scripts\Modules\accountlogin.min.js.map">
+      <DependentUpon>accountlogin.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
