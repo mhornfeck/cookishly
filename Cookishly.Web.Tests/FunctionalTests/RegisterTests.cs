@@ -1,9 +1,9 @@
 ﻿using Cookishly.Web.Controllers;
 using Cookishly.Web.Models;
-using Cookishly.Web.Tests.Pages;
+using Cookishly.Web.Tests.FunctionalTests.PageObjects;
 using NUnit.Framework;
 
-namespace Cookishly.Web.Tests
+namespace Cookishly.Web.Tests.FunctionalTests
 {
     [TestFixture]
     public class RegisterTests

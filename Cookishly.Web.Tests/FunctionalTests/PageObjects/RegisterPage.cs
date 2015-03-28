@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cookishly.Web.Models;
+﻿using Cookishly.Web.Models;
 using OpenQA.Selenium;
 using TestStack.Seleno.PageObjects;
 
-
-namespace Cookishly.Web.Tests.Pages
+namespace Cookishly.Web.Tests.FunctionalTests.PageObjects
 {
     public class RegisterPage : Page<RegisterViewModel>
     {

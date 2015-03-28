@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using TestStack.Seleno.PageObjects;
 
-namespace Cookishly.Web.Tests.Pages
+namespace Cookishly.Web.Tests.FunctionalTests.PageObjects
 {
     public class HomePage : Page
     {

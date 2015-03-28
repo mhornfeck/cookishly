@@ -1,7 +1,7 @@
 ﻿using Castle.Core.Logging;
 using TestStack.Seleno.Configuration;
 
-namespace Cookishly.Web.Tests
+namespace Cookishly.Web.Tests.FunctionalTests
 {
     public static class BrowserHost
     {

@@ -1,15 +1,18 @@
 ﻿var AccountLogin = (function () {
     var self = this;
 
-    var $submitButton = $('#SubmitLoginButton');
-    var $loginForm = $('#LoginForm');
+    var $submitButton;
+    var $loginForm;
 
-    self.init = function() {
-        $('#SubmitLoginButton').click(function (e) {
+    self.init = function () {
+        $submitButton = $('#SubmitLoginButton');
+        $loginForm = $('#LoginForm');
+
+        $submitButton.click(function (e) {
             e.preventDefault();
-            var formData = $('#LoginForm').serialize();
+            var formData = $loginForm.serialize();
             App.login(formData);
-            $('#LoginForm').submit();
+            $loginForm.submit();
         });
     }
 
@@ -17,4 +20,6 @@
 
 })();
 
-AccountLogin.init();
+$(function () {
+    AccountLogin.init();
+});
