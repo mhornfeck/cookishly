@@ -1,8 +1,6 @@
 ﻿var App = (function() {
     var self = this;
 
-    var token;
-
     self.getTokenUrl = 'http://localhost/Cookishly.Api/token';
 
     self.login = function(userdata) {
@@ -12,16 +10,16 @@
             .fail(handleError);
     }
 
+    self.getApiUrl = function(url) {
+        return 'http://localhost/Cookishly.Api/api' + url;
+    };
+
     self.getAccessToken = function () {
-        //return sessionStorage.getItem("accessToken");
-        alert("get " + token);
-        return token;
+        return sessionStorage.getItem("accessToken");
     };
 
     self.setAccessToken = function (accessToken) {
         sessionStorage.setItem("accessToken", accessToken);
-        token = accessToken;
-        alert("set " + token);
     };
 
     self.returnNumber = function(num) {

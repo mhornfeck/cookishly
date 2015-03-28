@@ -224,6 +224,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.3.0.debug.js" />
+    <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Modules\account.login.js" />
     <Content Include="Scripts\Modules\accountlogin.js">
@@ -233,8 +235,16 @@
       <DependentUpon>accountlogin.js</DependentUpon>
     </Content>
     <Content Include="Scripts\Modules\app.js" />
+    <Content Include="Scripts\Modules\ingredients.browse.js" />
+    <Content Include="Scripts\Modules\ingredientsbrowse.js">
+      <DependentUpon>ingredientsbrowse.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Modules\ingredientsbrowse.min.js">
+      <DependentUpon>ingredientsbrowse.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ViewModels\ingredients.browse.viewmodel.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -278,6 +288,10 @@
     <Content Include="Scripts\Modules\accountlogin.js.bundle" />
     <Content Include="Scripts\Modules\accountlogin.min.js.map">
       <DependentUpon>accountlogin.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Modules\ingredientsbrowse.js.bundle" />
+    <Content Include="Scripts\Modules\ingredientsbrowse.min.js.map">
+      <DependentUpon>ingredientsbrowse.min.js</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
