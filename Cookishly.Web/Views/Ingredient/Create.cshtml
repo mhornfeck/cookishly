@@ -1,0 +1,44 @@
+﻿@model Cookishly.Web.Models.Ingredients.CreateIngredientViewModel
+
+@{
+    Layout = "~/Views/Ingredient/_SubLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("ChangePassword", "Manage", FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Create Ingredient</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", data_bind="textInput: ingredientName, event: { change: getImageOptions }" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Category, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.Category, Model.Categories, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ImageUrl, new { @class = "control-label" })
+                <div class="image-options-container" id="IngredientImageOptionsContainer" data-bind="foreach: imageOptions">
+                    <div class="image-option">
+                        <img data-bind="attr: { src: url }" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Modules/ingredientscreate.js"></script>
+}
+
+

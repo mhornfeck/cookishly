@@ -171,6 +171,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\IngredientController.cs" />
     <Compile Include="Models\Ingredients\BrowseIngredientsViewModel.cs" />
+    <Compile Include="Models\Ingredients\CreateIngredientViewModel.cs" />
     <Compile Include="Services\ApplicationUserManager.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\ApplicationSignInManager.cs" />
@@ -235,6 +236,7 @@
       <DependentUpon>accountlogin.js</DependentUpon>
     </Content>
     <Content Include="Scripts\Modules\app.js" />
+    <Content Include="Scripts\Modules\ingredients.create.js" />
     <Content Include="Scripts\Modules\ingredients.browse.js" />
     <Content Include="Scripts\Modules\ingredientsbrowse.js">
       <DependentUpon>ingredientsbrowse.js.bundle</DependentUpon>
@@ -242,9 +244,17 @@
     <Content Include="Scripts\Modules\ingredientsbrowse.min.js">
       <DependentUpon>ingredientsbrowse.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\Modules\ingredientscreate.js">
+      <DependentUpon>ingredientscreate.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Modules\ingredientscreate.min.js">
+      <DependentUpon>ingredientscreate.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\ViewModels\ingredients.browse.viewmodel.js" />
+    <Content Include="Scripts\ViewModels\ingredients.create.viewmodel.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -282,7 +292,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutAnonymous.cshtml" />
-    <Content Include="Views\Shared\_SubLayout.cshtml" />
+    <Content Include="Views\Ingredient\_SubLayout.cshtml" />
     <Content Include="Views\Ingredient\Index.cshtml" />
     <Content Include="Views\Ingredient\_SubNavLinks.cshtml" />
     <Content Include="Scripts\Modules\accountlogin.js.bundle" />
@@ -292,6 +302,11 @@
     <Content Include="Scripts\Modules\ingredientsbrowse.js.bundle" />
     <Content Include="Scripts\Modules\ingredientsbrowse.min.js.map">
       <DependentUpon>ingredientsbrowse.min.js</DependentUpon>
+    </Content>
+    <Content Include="Views\Ingredient\Create.cshtml" />
+    <Content Include="Scripts\Modules\ingredientscreate.js.bundle" />
+    <Content Include="Scripts\Modules\ingredientscreate.min.js.map">
+      <DependentUpon>ingredientscreate.min.js</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

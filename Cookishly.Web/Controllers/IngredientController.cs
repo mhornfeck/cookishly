@@ -26,5 +26,12 @@ namespace Cookishly.Web.Controllers
 
             return View(viewModel);
         }
+
+	    public ActionResult Create()
+	    {
+		    var viewModel = new CreateIngredientViewModel();
+
+		    return View(viewModel);
+	    }
     }
 }

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link href="~/Content/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick-theme.css" />
     <link href='http://fonts.googleapis.com/css?family=Marcellus' rel='stylesheet' type='text/css'>
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -35,6 +37,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/knockout-3.3.0.js"></script>
+    <script src="~/Scripts/slick.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

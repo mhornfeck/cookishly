@@ -62,9 +62,9 @@ function IngredientBrowseViewModel() {
                 limit: self.pageSize
             },
             contentType: "application/json; charset=utf-8",
-            headers: {
-                'Authorization': 'Bearer ' + App.getAccessToken()
-            }
+            //headers: {
+            //    'Authorization': 'Bearer ' + App.getAccessToken()
+            //}
         }).done(setIngredients);
     }
 
